@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/User');
 
+require("dotenv").config();
+
 //Création du fonction signup avec cryptage du mot de passe créer
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
@@ -35,7 +37,7 @@ exports.login = (req, res, next) => {
                         userId: user._id,
                         token: jwt.sign(
                             { userId: user._id },
-                            'RANDOM_TOKEN_SECRET',
+                            'KEY_SECRET',
                             { expiresIn: '24h' }
                         )
                     });

@@ -3,14 +3,16 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
 
-//Connection à mongoDB
-mongoose.connect('mongodb+srv://project6:0AznjdaAHUhLXd8H@cluster0.ayhb2fb.mongodb.net/?retryWrites=true&w=majority',
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
-    .then(() => console.log('Connexion à MongoDB réussie !'))
-    .catch(() => console.log('Connexion à MongoDB échouée !'));
+require("dotenv").config();
+
+//Connection à mongoDB + module dotenv pour sécurisé informations
+mongoose.connect('mongodb+srv://' + process.env.g5cS8rdFw67Id + ':' + process.env.A56GsDfZaxQpW + '@cluster0.ayhb2fb.mongodb.net/?retryWrites=true&w=majority',
+{
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => console.log('Connexion à MongoDB réussie !'))
+.catch(() => console.log('Connexion à MongoDB échouée !'));
 
 const app = express();
 
@@ -26,6 +28,5 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.json());
-
 
 module.exports = app;
