@@ -134,7 +134,7 @@ exports.likeSauce = (req, res, next) => {
             if (like === 1) {
                 // Vérifiez si l'utilisateur a déjà liker la sauce
                 if (sauce.usersLiked.includes(userId)) {
-                    return res.status(400).json({ message: 'Vous avez déjà aimé cette sauce !' });
+                    return res.status(400).json({ message: 'Vous avez déjà liker cette sauce !' });
                 } else if (sauce.usersDisliked.includes(userId)) {
                     // Si l'utilisateur n'a pas liker la sauce, supprimez son ID du tableau "usersDisliked"
                     const index = sauce.usersDisliked.indexOf(userId);

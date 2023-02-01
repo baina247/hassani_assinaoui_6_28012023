@@ -6,17 +6,17 @@ const multer = require('../middleware/multer-config');
 
 const sauceCtrl = require('../controllers/sauce');
 
-//middleware des objets attendu par le frontend
+//Récupérer toutes les sauces, nécessite une authentification via le middleware d'authentification.
 router.get('/api/sauces', auth, sauceCtrl.getAllSauces);
-//Récupération d'un objet via son l'ID  
+//Récupérer une seule sauce par son ID, nécessite une authentification via le middleware d'authentification. 
 router.get('/api/sauces/:id', auth, sauceCtrl.getOneSauce);
-//Création d'un objet
+//Créer une nouvelle sauce, nécessite une authentification via le middleware d'authentification.
 router.post('/api/sauces', auth, sauceCtrl.creatSauce);
-//Modificationd de ressource + verification multer
+//Mettre à jour une sauce par son ID, nécessite une authentification via le middleware d'authentification et un middleware Multer pour gérer le téléchargement d'un fichier.
 router.put('/api/sauces/:id', auth, multer, sauceCtrl.modifySauce);
-//Suppression de ressource
+//Supprimer une sauce par son ID, nécessite une authentification via le middleware d'authentification.
 router.delete('/api/sauces/:id', auth, sauceCtrl.deleteSauce);
-//Controle de like
+//Manipuler likes pour une sauce, nécessite une authentification via le middleware d'authentification.
 router.post('/api/sauces/:id/like', auth, sauceCtrl.likeSauce);
 
 module.exports = router;
