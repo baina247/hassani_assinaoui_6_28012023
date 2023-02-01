@@ -11,8 +11,8 @@ const sauceSchema = mongoose.Schema({
     heat: { type: Number, required: true },
     likes: { type: Number, required: true },
     dislikes: { type: Number, required: true },
-    usersLiked: [{ type: String.userId, unique: true }],
-    usersDisliked: [{ type: String.userId, unique: true }],
+    usersLiked: [{ type: String, unique: true }],
+    usersDisliked: [{ type: String, unique: true }],
 });
 
 //Exporter model de schéma créé pour pouvoir l'exploiter
