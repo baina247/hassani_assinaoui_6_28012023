@@ -9,7 +9,7 @@ const sauceRoutes = require('./routes/sauce');
 require("dotenv").config();
 
 //Connection à mongoDB + environnement dotenv
-mongoose.connect('mongodb+srv://' + process.env.g5cS8rdFw67Id + ':' + process.env.A56GsDfZaxQpW + '@cluster0.ayhb2fb.mongodb.net/?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://' + process.env.hostName + ':' + process.env.hostPw + '@cluster0.ayhb2fb.mongodb.net/?retryWrites=true&w=majority',
 {
     useNewUrlParser: true,
     useUnifiedTopology: true

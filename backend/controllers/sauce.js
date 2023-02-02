@@ -21,7 +21,7 @@ exports.creatSauce = (req, res, next) => {
         .catch(error => res.status(400).json({ error }));
 };
 
-exports.getAllSauces = (req, res, next) => {
+exports.getSauces = (req, res, next) => {
     // Interroger la base de données pour toutes les sauces
     Sauce.find()
         .then(sauce => {
@@ -127,8 +127,9 @@ exports.likeSauce = (req, res, next) => {
     // Trouver la sauce via l'ID dans la base de données
     Sauce.findOne({ _id: req.params.id })
         .then(sauce => {
+            console.log(sauce);
             // Vérifier si l'utilisateur a liker la sauce
-            if (like === 1) {
+            if (like == 1) {
                 // Vérifiez si l'utilisateur a déjà liker la sauce
                 if (sauce.usersLiked.includes(userId)) {
                     return res.status(400).json({ message: 'Vous avez déjà liker cette sauce !' });
@@ -141,7 +142,7 @@ exports.likeSauce = (req, res, next) => {
                 // Ajoutez l'ID de l'utilisateur au tableau `usersLiked`
                 sauce.usersLiked.push(userId);
                 sauce.likes += 1;
-            } else if (like === -1) {
+            } else if (like == -1) {
                 // Vérifiez si l'utilisateur n'a pas déjà disliker la sauce
                 if (sauce.usersDisliked.includes(userId)) {
                     return res.status(400).json({ message: 'Vous avez déjà disliker cette sauce !' });
@@ -154,7 +155,7 @@ exports.likeSauce = (req, res, next) => {
                 // Ajoutez l'ID de l'utilisateur au tableau `usersDisliked`
                 sauce.usersDisliked.push(userId);
                 sauce.dislikes += 1;
-            } else if (like === 0) {
+            } else if (like == 0) {
                 // Si l'utilisateur souhaite supprimer ce qu'il aime ou n'aime pas
                 if (sauce.usersLiked.includes(userId)) {
                     // Si l'utilisateur a liker la sauce, supprimez son ID du tableau `usersLiked`
@@ -184,6 +185,7 @@ exports.likeSauce = (req, res, next) => {
                     });
                 })
                 .catch(error => {
+                    //console.log(error);
                     // S'il y a une erreur, envoyez une réponse avec l'erreura
                     res.status(401).json({ error });
                 });
