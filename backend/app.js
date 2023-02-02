@@ -2,11 +2,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/user')
+const sauceRoutes = require('./models/Sauce');
 const path = require('path');
+
+
 
 require("dotenv").config();
 
-//Connection à mongoDB + module dotenv
+//Connection à mongoDB + environnement dotenv
 mongoose.connect('mongodb+srv://' + process.env.g5cS8rdFw67Id + ':' + process.env.A56GsDfZaxQpW + '@cluster0.ayhb2fb.mongodb.net/?retryWrites=true&w=majority',
 {
     useNewUrlParser: true,
@@ -34,6 +37,8 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 app.use('/api/auth', userRoutes);
+app.use('/api/sauces', sauceRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
+
 
 module.exports = app;

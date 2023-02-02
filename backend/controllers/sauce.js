@@ -17,11 +17,10 @@ exports.creatSauce = (req, res, next) => {
     });
     // Enregistrement de l'objet dans la base de données et retour d'une promesse
     sauce.save()
-        .then(() => res.status(201).json({ message: 'Sauce saved!' }))
+        .then(() => res.status(201).json({ message: 'Sauce enregistré !' }))
         .catch(error => res.status(400).json({ error }));
 };
 
-// Obtenez toutes les sauces
 exports.getAllSauces = (req, res, next) => {
     // Interroger la base de données pour toutes les sauces
     Sauce.find()
@@ -35,7 +34,6 @@ exports.getAllSauces = (req, res, next) => {
         });
 };
 
-// Obtenez une sauce par l'ID
 exports.getOneSauce = (req, res, next) => {
     // Interroger la base de données pour une sauce avec l'ID fourni
     Sauce.findOne({ _id: req.params.id })
@@ -63,7 +61,6 @@ exports.modifySauce = (req, res, next) => {
     // Supprimer la propriété _userId de sauceObject
     delete sauceObject._userId;
 
-    // Trouver la sauce avec l'identifiant donné dans la base de données
     Sauce.findOne({ _id: req.params.id })
         .then((sauce) => {
             // Vérifiez si l'utilisateur authentifié est le propriétaire de la sauce
