@@ -6,7 +6,7 @@ const path = require('path');
 
 require("dotenv").config();
 
-//Connection à mongoDB + module dotenv pour sécurisé informations
+//Connection à mongoDB + module dotenv
 mongoose.connect('mongodb+srv://' + process.env.g5cS8rdFw67Id + ':' + process.env.A56GsDfZaxQpW + '@cluster0.ayhb2fb.mongodb.net/?retryWrites=true&w=majority',
 {
     useNewUrlParser: true,
