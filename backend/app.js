@@ -5,24 +5,25 @@ const userRoutes = require('./routes/user');
 const path = require('path');
 const sauceRoutes = require('./routes/sauce');
 
-
+// Importez les variables d'environnement à partir du fichier .env
 require("dotenv").config();
 
-//Connection à mongoDB + environnement dotenv
+// Connectez-vous à MongoDB en utilisant les variables d'environnement pour le nom d'hôte et le mot de passe
 mongoose.connect('mongodb+srv://' + process.env.hostName + ':' + process.env.hostPw + '@cluster0.ayhb2fb.mongodb.net/?retryWrites=true&w=majority',
 {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
-.then(() => console.log('Connexion à MongoDB réussie !'))
-.catch(() => console.log('Connexion à MongoDB échouée !'));
+.then(() => console.log('Connexion réussie à MongoDB !'))
+.catch(() => console.log('Échec de la connexion à MongoDB !'));
 
+// Initialiser l'application express
 const app = express();
 
+// Utiliser le middleware JSON
 app.use(express.json());
 
-
-//Implémentation du CORS
+// Mise en œuvre du CORS
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -34,10 +35,17 @@ app.use((req, res, next) => {
     }
 });
 
+// Utiliser le middleware body-parser pour analyser les requêtes entrantes au format JSON
 app.use(bodyParser.json());
+
+// Utilisez les routes de la sauce
 app.use('/api/sauces', sauceRoutes);
+
+// Utiliser les routes utilisateurs
 app.use('/api/auth', userRoutes);
+
+// Servir des images de manière statique
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-
+// Exporter l'application express
 module.exports = app;
