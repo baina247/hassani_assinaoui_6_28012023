@@ -13,7 +13,9 @@ exports.creatSauce = (req, res, next) => {
         ...sauceObject,
         userId: req.auth.userId,
         // Création de l'URL de l'objet
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        userLiked: [],
+        userDisliked: []
     });
     // Enregistrement de l'objet dans la base de données et retour d'une promesse
     sauce.save()
@@ -127,7 +129,6 @@ exports.likeSauce = (req, res, next) => {
     // Trouver la sauce via l'ID dans la base de données
     Sauce.findOne({ _id: req.params.id })
         .then(sauce => {
-            console.log(sauce);
             // Vérifier si l'utilisateur a liker la sauce
             if (like == 1) {
                 // Vérifiez si l'utilisateur a déjà liker la sauce

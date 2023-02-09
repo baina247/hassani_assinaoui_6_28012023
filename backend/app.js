@@ -41,7 +41,7 @@ app.use(bodyParser.json());
 // Utilisez les routes de la sauce
 app.use('/api/sauces', sauceRoutes);
 
-// Utiliser les routes utilisateurs
+// Utilisez les routes utilisateurs
 app.use('/api/auth', userRoutes);
 
 // Servir des images de manière statique
