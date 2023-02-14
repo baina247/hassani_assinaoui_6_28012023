@@ -70,6 +70,12 @@ exports.modifySauce = (req, res, next) => {
                 // Sinon, retourner un statut 401 avec un message "Non-autorisé"
                 res.status(401).json({ message: 'Non-autorisé' });
             } else {
+                // Si l'utilisateur est le propriétaire de la sauce, supprimer l'image précédente
+                fs.unlink(`images/${sauce.imageUrl.split('/images/')[1]}`, (error) => {
+                    if (error) {
+                        console.error(error);
+                    }
+                });
                 // Si l'utilisateur est le propriétaire de la sauce, mettre à jour la sauce dans la base de données avec sauceObject
                 Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
                     // Si la mise à jour a réussi, renvoyez un statut 200 avec un message "Sauce modifiée!"
@@ -95,7 +101,7 @@ exports.deleteSauce = (req, res, next) => {
             } else {
                 // Si l'utilisateur authentifié est le propriétaire de la sauce, extrayez le nom du fichier de l'URL de l'image de la sauce
                 const filename = sauce.imageUrl.split('/images/')[1];
-                // Delete the image file from the file system
+                // Supprimer le fichier image du système de fichiers
                 fs.unlink(`images/${filename}`, (error) => {
                     if (error) {
                         // S'il y a une erreur lors de la suppression du fichier, envoyez une réponse avec un code d'état 500 et le message d'erreur
