@@ -15,7 +15,10 @@ mongoose
       process.env.hostName +
       ":" +
       process.env.hostPw +
-      "@cluster0.ayhb2fb.mongodb.net/?retryWrites=true&w=majority",
+      "@" +
+      process.env.hostUrl +
+      "/" +
+      process.env.hostConnection,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
